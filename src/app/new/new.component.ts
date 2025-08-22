@@ -33,7 +33,7 @@ import { MediRepFMBDMhierarchy } from '../model/MediRepFMBDMhierarchy.model';
 import { ExecutiveService } from '../executive.service'; // Updated service
 
 import { XontVenturaMessagePromptComponent } from '../xont-ventura-message-prompt/xont-ventura-message-prompt.component';
-import { ListPromptComponent } from 'xont-ventura-list-prompt';
+import { ListPromptComponent } from '../xont.ventura.list.prompt/xont.ventura.list.prompt.component';
 import { XontVenturaClassificationSelectorComponent } from '../xont-ventura-classification-selector/xont-ventura-classification-selector.component';
 import { XontVenturaGridExportComponent } from '../xont-ventura-gridexport/xont-ventura-gridexport.component';
 import { XontVenturaDatepickerComponent } from '../xont-ventura-datepicker/xont-ventura-datepicker.component';
