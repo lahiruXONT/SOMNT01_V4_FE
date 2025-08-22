@@ -1,0 +1,293 @@
+<!-- xont-ventura-message-prompt -->
+<xont-ventura-message-prompt #msgPrompt></xont-ventura-message-prompt>
+
+<!-- Loading Indicator (using Material Spinner) -->
+<mat-spinner
+  *ngIf="isLoading()"
+  diameter="30"
+  style="margin: 16px auto; display: block"
+></mat-spinner>
+
+<!-- xont-ventura-collapsible -->
+<xont-ventura-collapsible
+  id="collapse1"
+  targetElementID="selectionCriteria"
+  [collapsed]="searchForm.get('Collapsed')?.value ?? true"
+  [isCollapsible]="true"
+  (onChange)="searchForm.patchValue({ Collapsed: !$event })"
+  [title]="'Selection Criteria'"
+>
+</xont-ventura-collapsible>
+
+<!-- Selection Criteria (inside collapsible div) -->
+<div id="selectionCriteria" class="collapse">
+  <!-- Assuming collapse class is handled by xont component -->
+  <form [formGroup]="searchForm" (ngSubmit)="list(true)">
+    <table>
+      <tbody>
+        <tr>
+          <td width="120">
+            <span id="lblExecutiveCode" class="Captionstyle"
+              >Executive Code</span
+            >
+          </td>
+          <td>
+            <mat-form-field appearance="fill" style="width: 120px">
+              <input
+                matInput
+                type="text"
+                id="txtExecutiveCode"
+                formControlName="ExecutiveCode"
+                maxlength="10"
+                class="Textboxstyle"
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td width="120">
+            <span id="lblExecutiveName" class="Captionstyle"
+              >Executive Name</span
+            >
+          </td>
+          <td>
+            <mat-form-field appearance="fill" style="width: 320px">
+              <input
+                matInput
+                type="text"
+                id="txtExecutiveName"
+                formControlName="ExecutiveName"
+                maxlength="50"
+                class="Textboxstyle"
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <tbody>
+        <tr>
+          <td width="120">
+            <span id="lblTerritory" class="Captionstyle">Territory</span>
+          </td>
+          <td>
+            <!-- Assuming xont-ventura-list-prompt works with Reactive Forms -->
+            <xont-ventura-list-prompt
+              name="lpmtTerritory"
+              id="lpmtTerritory"
+              #lpmtTerritory
+              [maxLengths]="[10, 50]"
+              [inputWidths]="[120, 320]"
+              [gridHeaders]="['Territory Code', 'Description']"
+              [gridFields]="['MasterGroupValue', 'MasterGroupValueDescription']"
+              [mandatory]="false"
+              [type]="'territory'"
+              [status]="'All'"
+              [control]="searchForm"
+              [strict]="true"
+              formControlName="TerritoryCode"
+              [modelProps]="['TerritoryCode', 'TerritoryDesc']"
+              [dataFields]="['MasterGroupValue', 'MasterGroupValueDescription']"
+            >
+            </xont-ventura-list-prompt>
+          </td>
+        </tr>
+        <tr>
+          <td width="120">
+            <span id="lblOperationType" class="Captionstyle"
+              >Operation Type</span
+            >
+          </td>
+          <td>
+            <xont-ventura-list-prompt
+              name="lpmtOptType"
+              id="lpmtOptType"
+              #lpmtOptType
+              [maxLengths]="[10, 50]"
+              [inputWidths]="[120, 320]"
+              [gridHeaders]="['Code', 'Description']"
+              [gridFields]="['Code', 'Description']"
+              [mandatory]="false"
+              [strict]="true"
+              [control]="searchForm"
+              (onDataBind)="lpmtOptType_DataBind()"
+              formControlName="OperationType"
+              [modelProps]="['OperationType', 'OperationTypeDesc']"
+              [dataFields]="['Code', 'Description']"
+            >
+            </xont-ventura-list-prompt>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- xont-ventura-classification-selector -->
+    <xont-ventura-classification-selector
+      #clsExecutive
+      [id]="cls1.ID"
+      [taskCode]="cls1.TaskCode"
+      [classificationType]="cls1.Type"
+      [labelWidth]="cls1.LabelWidth"
+      [enableUserInput]="cls1.EnableUserInput ? 'true' : 'false'"
+      [codeTextWidth]="cls1.CodeTextWidth"
+      [descriptionTextWidth]="cls1.DescriptionTextWidth"
+      [activeStatus]="cls1.ActiveStatus"
+      [allMandatory]="cls1.AllMandatory ? 'true' : 'false'"
+      [lastLevelRequired]="cls1.LastLevelRequired ? 'true' : 'false'"
+    >
+    </xont-ventura-classification-selector>
+
+    <table>
+      <tbody>
+        <tr>
+          <td width="120">&nbsp;</td>
+          <td>
+            <fieldset style="width: 300px">
+              <legend class="GridCaptionstyle">Search type</legend>
+              <mat-radio-group
+                aria-label="Search Type"
+                formControlName="SearchType"
+              >
+                <mat-radio-button value="startWith"
+                  >Start with</mat-radio-button
+                >
+                <mat-radio-button value="anyWhere"
+                  >Anywhere in text</mat-radio-button
+                >
+              </mat-radio-group>
+            </fieldset>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <mat-checkbox formControlName="ActiveOnly"
+              >Active only</mat-checkbox
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              id="btnList"
+              class="MainButtonStyle"
+            >
+              List
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+<!-- End Selection Criteria -->
+
+<!-- xont-ventura-gridexport -->
+<div>
+  <xont-ventura-gridexport
+    id="gridexport1"
+    gridId="tblExecutive"
+    gridName="Executive"
+  ></xont-ventura-gridexport>
+</div>
+
+<!-- No Data Message -->
+<span class="Labelstyle" *ngIf="!isLoading() && !isDataFound()"
+  >No data found for the given criteria</span
+>
+
+<!-- Data Table Container -->
+<div class="DataTableContainer" *ngIf="isDataFound()">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    id="tblExecutive"
+    class="DataTableStyle HeaderFreezeStyle"
+  >
+    <!-- Executive Code Column -->
+    <ng-container matColumnDef="ExecutiveCode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Executive Code</th>
+      <td mat-cell *matCellDef="let item">{{ item.ExecutiveCode }}</td>
+    </ng-container>
+
+    <!-- Executive Name Column -->
+    <ng-container matColumnDef="ExecutiveName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Executive Name</th>
+      <td mat-cell *matCellDef="let item">{{ item.ExecutiveName }}</td>
+    </ng-container>
+
+    <!-- User Profile Name Column -->
+    <ng-container matColumnDef="UserProfileName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        User Profile Name
+      </th>
+      <td mat-cell *matCellDef="let item">{{ item.UserProfileName }}</td>
+    </ng-container>
+
+    <!-- Territory Column -->
+    <ng-container matColumnDef="TerritoryName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Territory</th>
+      <td mat-cell *matCellDef="let item">{{ item.TerritoryName }}</td>
+    </ng-container>
+
+    <!-- Operation Type Column -->
+    <ng-container matColumnDef="OperationTypeDesc">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Operation Type</th>
+      <td mat-cell *matCellDef="let item">{{ item.OperationTypeDesc }}</td>
+    </ng-container>
+
+    <!-- Options Column -->
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef>Options</th>
+      <td mat-cell *matCellDef="let item">
+        <a style="cursor: pointer" (click)="newBasedOn_OnClick(item)"
+          >NewBasedOn</a
+        >
+        |
+        <a style="cursor: pointer" (click)="edit_OnClick(item)">Edit</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [ngClass]="{ deactiveRow: row.Status == 0 }"
+    ></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    (page)="gridLoader_OnChange($event)"
+    [length]="totalRecords"
+    [pageSize]="pageSize"
+    aria-label="Select page of Executive data"
+  >
+  </mat-paginator>
+</div>
+<!-- End Data Table Container -->
+
+<!-- Action Buttons -->
+<div>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="btnNew_OnClick()"
+    id="btnNew"
+    class="MainButtonStyle"
+  >
+    New
+  </button>
+  <button mat-raised-button (click)="window.closeTab()" class="MainButtonStyle">
+    Exit
+  </button>
+  <!-- Ensure closeTab is globally available -->
+</div>

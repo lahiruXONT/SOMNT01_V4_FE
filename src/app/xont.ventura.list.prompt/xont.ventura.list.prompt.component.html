@@ -1,0 +1,159 @@
+<div class="position-relative w-100" #element>
+  <!-- Input Fields -->
+  <div class="d-flex align-items-center gap-2 w-100">
+    <ng-container
+      *ngFor="
+        let input of inputWidths;
+        let i = index;
+        let isFirst = first;
+        let isLast = last
+      "
+    >
+      <input
+        #inputElement
+        autocomplete="off"
+        [formControl]="getFormControl(modelProps[i])"
+        [disabled]="disabled"
+        [maxlength]="maxLengths[i]"
+        [class.disabledInput]="disabled"
+        [style.width.px]="inputWidths[i]"
+        (mousedown)="!disabled && InputMousedIn($event, i)"
+        (keyup)="!disabled && InputKeyUp($event, i)"
+        (keydown)="!disabled && InputKeyDown($event, isLast, i)"
+        class="form-control form-control-sm inputBox ps-2"
+      />
+
+      <!-- Dropdown Icon -->
+
+      <span *ngIf="isFirst" class="prompt-icon">
+        <i
+          [class.text-muted]="disabled"
+          [class.disabled-pointer]="disabled"
+          (click)="!disabled && ClickedOn($event)"
+          class="fa fa-angle-double-down"
+          aria-hidden="true"
+        ></i>
+      </span>
+
+      <!-- Clear Button & Mandatory Indicator -->
+      <span *ngIf="isLast" class="controls d-flex align-items-center gap-2">
+        <i
+          *ngIf="_dataSliderStatus === 'block'"
+          (click)="ClearModel()"
+          title="clear code/description"
+          class="fa fa-times-circle text-primary fs-5"
+        ></i>
+        <small
+          *ngIf="mandatory && !valid"
+          [class.position-relative]="_currentCursorInputIndex >= 0"
+          class="text-danger fs-4 fw-bold"
+          >*</small
+        >
+      </span>
+    </ng-container>
+  </div>
+
+  <!-- Data Slider -->
+  <div
+    class="position-absolute bg-white border border-primary shadow-sm p-2 rounded"
+    [style.display]="_dataSliderStatus"
+    [style.min-width.px]="_minWidth + 60"
+    style="z-index: 1000"
+  >
+    <!-- Scrollable Table Container -->
+    <div
+      class="overflow-auto"
+      [style.height.px]="_dataSet.length > _pageSize ? 270 : 275"
+    >
+      <!-- Plain HTML Table -->
+      <table class="table table-bordered table-hover table-sm mb-0">
+        <thead class="bg-light">
+          <tr>
+            <th
+              *ngFor="let header of gridHeaders; let i = index"
+              (click)="onSort(header)"
+            >
+              {{ header }}
+              <span class="ms-1">
+                {{
+                  sortColumn === dataFields[i]
+                    ? sortDirection === "asc"
+                      ? "▲"
+                      : "▼"
+                    : ""
+                }}
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pagedData" (click)="ItemSelected(item)">
+            <td *ngFor="let field of gridFields">
+              {{ item[field]?.toString().trim() }}
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr *ngIf="pagedData.length === 0 && !_stillDataLoading">
+            <td
+              [attr.colspan]="gridFields.length"
+              class="no-data text-center text-muted py-2"
+            >
+              No Data Found
+            </td>
+          </tr>
+          <!-- Loader -->
+          <tr *ngIf="_stillDataLoading">
+            <td
+              [attr.colspan]="gridFields.length"
+              class="text-center text-muted py-3"
+            >
+              <div
+                class="d-flex flex-column align-items-center justify-content-center"
+                role="status"
+                aria-live="polite"
+              >
+                <mat-spinner diameter="30"></mat-spinner>
+                <span class="mt-2 fw-bold text-primary">Loading...</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Custom Paginator -->
+    <nav *ngIf="totalPages > 1" class="mt-2" aria-label="Page navigation">
+      <ul class="pagination pagination-sm justify-content-start mb-0">
+        <li class="page-item" [class.disabled]="pageIndex === 0">
+          <a
+            class="page-link"
+            href="#"
+            (click)="$event.preventDefault(); goToPage(0)"
+            >&laquo;</a
+          >
+        </li>
+        <li
+          class="page-item"
+          [class.active]="page === pageIndex"
+          *ngFor="let page of pageArray"
+        >
+          <a
+            class="page-link"
+            href="#"
+            (click)="$event.preventDefault(); goToPage(page)"
+            >{{ page + 1 }}</a
+          >
+        </li>
+        <li class="page-item" [class.disabled]="pageIndex === totalPages - 1">
+          <a
+            class="page-link"
+            href="#"
+            (click)="$event.preventDefault(); goToPage(totalPages - 1)"
+            >&raquo;</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

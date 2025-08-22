@@ -1,0 +1,16 @@
+/* Add styles specific to the message prompt component if needed */
+/* If using Material, import Material theme in your global styles */
+
+.Captionstyle {
+  /* Define your Captionstyle if not globally available */
+  font-size: 14px; /* Example */
+  /* ... other styles ... */
+}
+
+.MainButtonStyle {
+  /* Define your MainButtonStyle if not globally available */
+  margin: 5px; /* Example */
+  /* ... other styles ... */
+}
+
+/* Ensure modal styles are loaded (e.g., via Bootstrap CSS globally) */

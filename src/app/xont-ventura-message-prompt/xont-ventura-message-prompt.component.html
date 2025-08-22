@@ -1,0 +1,172 @@
+<!-- Loading Indicator (if replacing ngBusy) -->
+<!-- <div *ngIf="isLoading()">Loading...</div> -->
+<!-- Or use a Material spinner -->
+<!-- <mat-spinner *ngIf="isLoading()" diameter="20" style="margin: auto;"></mat-spinner> -->
+
+<!-- Modal Structure (Keeping Bootstrap/jQuery for now) -->
+<!-- Consider migrating to <mat-dialog> for better Angular integration -->
+
+<!-- Confirm Modal -->
+<div
+  *ngIf="messageType === 'confirm'"
+  class="modal fade"
+  id="{{ id }}"
+  role="dialog"
+>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body Captionstyle" style="text-align: center">
+        <p>{{ messageText() }}</p>
+      </div>
+      <div class="text-center">
+        <button type="button" class="MainButtonStyle" (click)="confirm_ok()">
+          {{ okButtonText() }}
+        </button>
+        <button
+          type="button"
+          class="MainButtonStyle"
+          (click)="confirm_cancel()"
+        >
+          {{ cancelButtonText() }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Alert Modal -->
+<div
+  *ngIf="messageType === 'alert'"
+  class="modal fade"
+  id="{{ id }}"
+  role="dialog"
+>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body Captionstyle" style="text-align: center">
+        <p>{{ messageText() }}</p>
+      </div>
+      <div class="text-center">
+        <button type="button" class="MainButtonStyle" (click)="alert_ok()">
+          {{ okButtonText() }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Error Modal -->
+<div
+  *ngIf="messageType === 'error'"
+  class="modal fade"
+  id="{{ id }}"
+  role="dialog"
+>
+  <div
+    class="modal-dialog"
+    [ngClass]="{ 'modal-sm': message().ErrorType == 2 }"
+  >
+    <div class="modal-content">
+      <!-- Detailed Error (ErrorType == 1) -->
+      <div
+        *ngIf="message().ErrorType == 1"
+        class="modal-header"
+        style="
+          padding: 10px 10px 10px 20px;
+          background-color: crimson !important;
+        "
+      >
+        <h5 class="modal-title" style="font-size: 12px">Error Message</h5>
+      </div>
+
+      <div
+        *ngIf="message().ErrorType == 1"
+        class="modal-body"
+        style="background-color: #383838; color: white; font-size: 12px"
+      >
+        <table>
+          <tr>
+            <td style="padding-right: 50px">Error Log Number</td>
+            <td>: &nbsp; {{ message().ErrorLog }}</td>
+          </tr>
+          <tr>
+            <td>Error Time</td>
+            <td>: &nbsp; {{ message().ErrorTime }}</td>
+          </tr>
+          <tr>
+            <td>WorkStation</td>
+            <td>: &nbsp; {{ message().WorkstationId }}</td>
+          </tr>
+          <tr>
+            <td>User Name</td>
+            <td>: &nbsp; {{ message().UserName }}</td>
+          </tr>
+          <tr>
+            <td>IP Address</td>
+            <td>: &nbsp; {{ message().IpAddress }}</td>
+          </tr>
+          <tr>
+            <td>Message Number</td>
+            <td>: &nbsp; {{ message().MsgNumber }}</td>
+          </tr>
+          <tr>
+            <td>Error Description</td>
+            <td>: &nbsp; {{ message().Desc }}</td>
+          </tr>
+          <tr>
+            <td>Error Source</td>
+            <td>: &nbsp; {{ message().ErrorSource }}</td>
+          </tr>
+          <tr>
+            <td>DLL Name</td>
+            <td>: &nbsp; {{ message().DllName }}</td>
+          </tr>
+          <tr>
+            <td>Version</td>
+            <td>: &nbsp; {{ message().Version }}</td>
+          </tr>
+          <tr>
+            <td>Routine</td>
+            <td>: &nbsp; {{ message().Routine }}</td>
+          </tr>
+          <tr>
+            <td>Error Line Number</td>
+            <td>: &nbsp; {{ message().LineNumber }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div
+        *ngIf="message().ErrorType == 1"
+        class="modal-footer"
+        style="padding: 5px 20px 5px 5px; background-color: crimson"
+      >
+        <button
+          type="button"
+          class="btn btn-default btn-sm"
+          data-dismiss="modal"
+        >
+          OK
+        </button>
+        <!-- Or use Angular event (if not relying on Bootstrap's data-dismiss) -->
+        <!-- <button type="button" class="btn btn-default btn-sm" (click)="alert_ok()">OK</button> -->
+      </div>
+
+      <!-- Simple Error Message (ErrorType == 2) -->
+      <div
+        class="modal-body Captionstyle"
+        style="text-align: center"
+        *ngIf="message().ErrorType == 2"
+      >
+        <p>{{ message().MsgNumber }} : &nbsp; {{ message().Desc }}</p>
+      </div>
+      <div class="text-center" *ngIf="message().ErrorType == 2">
+        <button type="button" class="MainButtonStyle" data-dismiss="modal">
+          OK
+        </button>
+        <!-- Or use Angular event -->
+        <!-- <button type="button" class="MainButtonStyle" (click)="alert_ok()">OK</button> -->
+      </div>
+    </div>
+  </div>
+</div>
