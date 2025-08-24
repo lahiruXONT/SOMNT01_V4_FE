@@ -24,6 +24,7 @@
     "ngx-spinner": "^17.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "xont-ventura-list-prompt": "file:../../../../list_pack/xont-ventura-list-prompt-0.0.1.tgz",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

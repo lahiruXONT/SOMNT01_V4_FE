@@ -1,9 +1,9 @@
 import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MessageService } from '../message.service'; // Adjust path if necessary
+import { MessageService } from '../Service/message.service'; // Adjust path if necessary
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
-import { CommonService } from '../common.service'; // Ensure Angular 19 compatibility
+import { CommonService } from '../Service/common.service'; // Ensure Angular 19 compatibility
 
 // Declare jQuery if it's still a dependency (NOT RECOMMENDED for Angular 19)
 // It's better to migrate away from jQuery for modals.
@@ -41,9 +41,8 @@ export class XontVenturaMessagePromptComponent {
   // --- Constructor ---
   constructor(
     private location: Location,
-    private messageService: MessageService // Inject the updated service // private http: HttpClient, // Not directly needed if using MessageService
-  ) // private commonService: CommonService, // Not directly needed if MessageService handles API prefix
-  {
+    private messageService: MessageService // Inject the updated service // private http: HttpClient, // Not directly needed if using MessageService // private commonService: CommonService, // Not directly needed if MessageService handles API prefix
+  ) {
     // Initialization logic if needed
   }
 

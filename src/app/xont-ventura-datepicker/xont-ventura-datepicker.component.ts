@@ -15,7 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core'; // Or your preferred date adapter (e.g., MomentDateModule)
-import { DatetimeService } from '../datetime.service'; // Assuming this service is updated and provides formatting
+import { DatetimeService } from '../Service/datetime.service'; // Assuming this service is updated and provides formatting
 
 // We are removing direct Http usage as it's not shown in the component logic
 // import { HttpClient } from '@angular/common/http';

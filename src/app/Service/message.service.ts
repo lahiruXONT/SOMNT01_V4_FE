@@ -31,7 +31,7 @@ export class MessageService {
 
   // --- Private Helper Methods ---
   private getApiUrl(endpoint: string): string {
-    return `${this.commonService.getAPIPrefix()}/api/SOMNT01/${endpoint}`;
+    return `${this.commonService.getAPIPrefix()}/api/Message/${endpoint}`;
   }
 
   private handleError(error: HttpErrorResponse) {

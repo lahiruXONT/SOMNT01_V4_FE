@@ -20,7 +20,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Location } from '@angular/common';
-import { CommonService } from '../common.service'; // Ensure this path is correct and the service is Angular 19 compatible
+import { CommonService } from '../Service/common.service'; // Ensure this path is correct and the service is Angular 19 compatible
 // 3. Import RxJS operators and types
 import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs'; // Import Observable and error handling utilities
@@ -359,7 +359,7 @@ export class XontVenturaClassificationSelectorComponent
   ngOnInit(): void {
     this.clsBusy = this.http
       .get<any[]>(
-        `${this.siteName()}/api/SOMNT01/GetMasterCodes?ClassificationType=${
+        `${this.siteName()}/api/Prompt/GetMasterCodes?ClassificationType=${
           this.classificationType
         }`
       )
@@ -654,7 +654,7 @@ export class XontVenturaClassificationSelectorComponent
 
     this.http
       .post<MasterValue[]>(
-        `${this.siteName()}/api/SOMNT01/GetMasterValues`,
+        `${this.siteName()}/api/Prompt/GetMasterValues`,
         APIArgs,
         { headers }
       )
@@ -817,7 +817,7 @@ export class XontVenturaClassificationSelectorComponent
   }
 
   public autoFillHirarchy(type: string): void {
-    let apiUrl = `${this.siteName()}/api/SOMNT01/GetMasterGroupValuesHirarchy?MasterGroup=${
+    let apiUrl = `${this.siteName()}/api/Prompt/GetMasterGroupValuesHirarchy?MasterGroup=${
       this.selector[this.promptIndex].MasterGroup
     }&Code=${encodeURIComponent(
       this.selector[this.promptIndex].txtCode.trim()

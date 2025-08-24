@@ -33,7 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { XontVenturaMessagePromptComponent } from '../xont-ventura-message-prompt/xont-ventura-message-prompt.component';
 import { XontVenturaCollapsibleComponent } from '../xont-ventura-collapsible/xont-ventura-collapsible.component';
-import { ListPromptComponent } from '../xont.ventura.list.prompt/xont.ventura.list.prompt.component';
+import { ListPromptComponent } from 'xont-ventura-list-prompt';
 import {
   SelectedClassification,
   XontVenturaClassificationSelectorComponent,
@@ -42,8 +42,8 @@ import { XontVenturaGridExportComponent } from '../xont-ventura-gridexport/xont-
 import { XontVenturaGridLoaderComponent } from '../xont-ventura-gridloader/xont-ventura-gridloader.component';
 
 import { MediRepFMBDMhierarchy } from '../model/MediRepFMBDMhierarchy.model';
-import { ExecutiveService } from '../executive.service';
-import { CommonService } from '../common.service';
+import { ExecutiveService } from '../Service/executive.service';
+import { CommonService } from '../Service/common.service';
 
 export interface SelectionCriteria {
   ExecutiveCode: string;
