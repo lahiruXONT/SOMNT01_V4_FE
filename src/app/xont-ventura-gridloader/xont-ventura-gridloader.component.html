@@ -1,0 +1,35 @@
+<span class="Textboxstyle" style="padding-right: 5px; font-size: 11px">{{
+  recordsCountSummary
+}}</span>
+<button
+  type="button"
+  class="skipfwrdleft"
+  (click)="goToPage(1)"
+  [disabled]="currentPage === 1"
+></button>
+<button
+  type="button"
+  class="fwrdleft"
+  (click)="goToPage(currentPage - 1)"
+  [disabled]="currentPage === 1"
+></button>
+<input
+  type="text"
+  formControlName="currentPage"
+  (blur)="onPageInputBlur()"
+  class="Textboxstyle"
+  style="width: 40px; height: 22px"
+/>
+<span class="Captionstyle">&nbsp;OF {{ totalPages }}</span>
+<button
+  type="button"
+  class="fwrdright"
+  (click)="goToPage(currentPage + 1)"
+  [disabled]="currentPage === totalPages"
+></button>
+<button
+  type="button"
+  class="skipfwrdright"
+  (click)="goToPage(totalPages)"
+  [disabled]="currentPage === totalPages"
+></button>

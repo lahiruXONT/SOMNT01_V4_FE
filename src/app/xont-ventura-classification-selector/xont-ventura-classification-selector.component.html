@@ -1,0 +1,149 @@
+<div #element id="element">
+  <form [formGroup]="classificationForm">
+    <table class="clsTable">
+      <tbody>
+        <tr *ngFor="let row of selector(); let i = index">
+          <td>
+            <div [style.width]="labelWidth()" class="Captionstyle">
+              {{ row.GroupDescription }}
+            </div>
+          </td>
+          <td>
+            <input
+              #codeInput
+              [id]="id() + 'txtCode' + i"
+              [formControlName]="'code_' + i"
+              [disabled]="enabled() == 'false'"
+              autocomplete="off"
+              [style.width]="codeTextWidth()"
+              type="text"
+              class="Textboxstyle"
+              (mousedown)="InputMousedIn($event, false, i)"
+              (keyup)="InputKeyUp($event, false, i)"
+              (keydown)="InputKeyDown($event, false, i)"
+            />
+          </td>
+          <td>
+            <span>
+              <span
+                type="button"
+                title="Master Group - {{ row.MasterGroup }}"
+                (click)="ClickedOn($event, i)"
+                *ngIf="enabled() == 'true'"
+                class="fa fa-angle-double-down clickButton"
+                aria-hidden="true"
+              ></span>
+              <span
+                type="button"
+                title="Master Group - {{ row.MasterGroup }}"
+                class="fa fa-angle-double-down clickButtonDisabled"
+                *ngIf="enabled() == 'false'"
+                aria-hidden="true"
+              ></span>
+            </span>
+          </td>
+          <td>
+            <input
+              #descInput
+              [id]="id() + 'txtDesc' + i"
+              [formControlName]="'desc_' + i"
+              [disabled]="enabled() == 'false'"
+              autocomplete="off"
+              [style.width]="descriptionTextWidth()"
+              type="text"
+              class="Textboxstyle"
+              (mousedown)="InputMousedIn($event, true, i)"
+              (keyup)="InputKeyUp($event, true, i)"
+              (keydown)="InputKeyDown($event, true, i)"
+            />
+          </td>
+          <td style="padding-left: 2px">
+            <span style="position: relative; display: inline-block">
+              <span
+                *ngIf="getError(i)"
+                [class.clsMandatoryCurrent]="i == _currentClsGroupIndex()"
+                class="clsErrormessagetextstyle"
+                >{{ getError(i) }}</span
+              >
+            </span>
+            <i
+              class="fa fa-times-circle closeI"
+              *ngIf="
+                _dataSliderStatus() == 'block' && i == _currentClsGroupIndex()
+              "
+              title="clear code/description"
+              (click)="ClearModel(i)"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  <div
+    class="dataSlider"
+    [style.left]="labelWidth()"
+    [style.top]="24 * _currentClsGroupIndex() + 21 + 'px'"
+    [style.display]="_dataSliderStatus()"
+    [style.minWidth]="_minWidth() + 60 + 'px'"
+  >
+    <div *ngIf="_dataSet() === null">
+      <img
+        *ngIf="_dataSet() === null"
+        class="sliderLoader"
+        src="/public/App_Themes_V3/Blue/images/loader.gif"
+      />
+    </div>
+
+    <div
+      #scrollDiv
+      [style.height]="_dataSet()?.length > _pageSize() ? '260px' : '275px'"
+      class="scrollDiv"
+      *ngIf="!_stillDataLoading()"
+    >
+      <table [style.minWidth]="_minWidth() + 20 + 'px'" class="tableStyles">
+        <thead>
+          <tr>
+            <th
+              *ngFor="let header of _gridHeaders(); let gridHeaderIndex = index"
+            >
+              <span (click)="sortData(_gridFields()[gridHeaderIndex])">{{
+                header
+              }}</span>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            *ngFor="let item of getPagedData()"
+            class="dtRow"
+            (click)="ItemSelected(item)"
+          >
+            <td *ngFor="let field of _gridFields(); let fieldIndex = index">
+              {{ item[field].toString().trim() }}
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <div
+            *ngIf="_dataSet()?.length > _pageSize() || _dataSet()?.length == 0"
+          >
+            <div class="pmtPaginator" *ngIf="_dataSet()?.length > _pageSize()">
+              <span (click)="previousPage()" *ngIf="currentPage() > 1"
+                >< Prev</span
+              >
+              <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
+              <span (click)="nextPage()" *ngIf="currentPage() < totalPages()"
+                >Next ></span
+              >
+            </div>
+            <div class="pmtPaginator" *ngIf="_dataSet()?.length == 0">
+              <span>No Data Found to Display</span>
+            </div>
+          </div>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

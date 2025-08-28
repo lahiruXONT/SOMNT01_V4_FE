@@ -1,0 +1,124 @@
+.selectedRow {
+  background-color: rgb(102, 153, 153);
+}
+
+.dataSlider {
+  position: absolute;
+  min-height: 307px;
+  border-radius: 0 7px 7px 7px;
+  background-color: white;
+  margin-top: 3px;
+  margin-bottom: 15px;
+  z-index: 1000;
+  border: 1.5px #5399d6 solid;
+  padding-left: 5px;
+  color: #01539d;
+  font-family: Trebuchet MS;
+  background-color: ghostwhite;
+}
+
+.dtRow {
+  cursor: pointer;
+}
+.dtRow > td {
+  padding-right: 10px;
+}
+.dtRow:hover {
+  color: red;
+}
+.pmtPaginator {
+  position: absolute;
+  bottom: 4px;
+  border: 2px solid #006699;
+  border-radius: 6px;
+}
+.sliderLoader {
+  height: 80px;
+  margin: auto;
+  display: block;
+  margin-top: 80px;
+}
+.clickButton {
+  padding-left: 8.75px;
+  font-size: 16px;
+  padding-right: 8.75px;
+  cursor: pointer;
+  display: inline-block;
+}
+.scrollDiv {
+  overflow: auto;
+  overflow-x: hidden;
+  padding-left: 10px;
+  margin: 8px 5px 5px 0;
+}
+.closeI {
+  font-size: 18px;
+  cursor: pointer;
+  color: #006699;
+  vertical-align: middle;
+}
+.disabledInput {
+  background-color: rgba(170, 170, 170, 0.19);
+}
+.Textboxstyle[disabled] {
+  background-color: rgba(170, 170, 170, 0.19);
+}
+.clickButtonDisabled {
+  padding-left: 8.75px;
+  font-size: 16px;
+  padding-right: 8.75px;
+  display: inline-block;
+}
+.tableStyles tbody td {
+  padding: 2.5px 0 2.5px 3.5px;
+  border: 1px solid #aaaaaa;
+  background: white;
+  font-size: small;
+  font-family: Trebuchet MS;
+  font-size: 13px;
+}
+.tableStyles th {
+  padding: 2.5px 0 2.5px 3.5px;
+  font-family: Trebuchet MS;
+  font-size: 13px;
+  margin-left: 10px;
+  margin-top: 4px;
+  background-color: #006699;
+  color: #ffffff;
+}
+.tableStyles th:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.sortIcon {
+  padding-left: 7px;
+}
+.pmtPaginator > span {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+#element {
+  position: relative;
+  display: inline-block;
+  margin-bottom: -5px;
+}
+.Textboxstyle {
+  padding-left: 2px;
+}
+.clsTable td {
+  padding: 0 0 2px 0;
+}
+.clsErrormessagetextstyle {
+  position: absolute;
+  margin-left: 1px;
+  top: -14px;
+  left: 1px;
+  color: #e50505;
+  font-family: Trebuchet MS;
+  font-size: 20px;
+  font-style: normal;
+}
+.clsMandatoryCurrent {
+  top: -14px;
+  left: 22px;
+}

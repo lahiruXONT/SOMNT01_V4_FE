@@ -1,0 +1,18 @@
+fieldset {
+  padding-top: 6.6px !important;
+  padding-bottom: 13px !important;
+  padding-left: 11px !important;
+  padding-right: 11px !important;
+  border: 1px solid #7f9db9 !important;
+  margin-bottom: 10px !important;
+}
+fieldset legend {
+  color: #01539d !important;
+}
+
+.GridCaptionstyle {
+  font-size: 13px;
+  font-family: Trebuchet MS;
+  font-weight: bold;
+  color: #01539d;
+}

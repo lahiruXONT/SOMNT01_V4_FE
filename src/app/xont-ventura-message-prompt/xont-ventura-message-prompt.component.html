@@ -1,0 +1,68 @@
+<ng-template #modalContent let-modal>
+  <div *ngIf="messageType === 'confirm'">
+    <div class="modal-body Captionstyle text-center">
+      <p>{{ messageText }}</p>
+    </div>
+    <div class="modal-footer justify-content-center border-0">
+      <button type="button" class="MainButtonStyle" (click)="confirm_ok()">
+        {{ okButtonText }}
+      </button>
+      <button type="button" class="MainButtonStyle" (click)="confirm_cancel()">
+        {{ cancelButtonText }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="messageType === 'alert'">
+    <div class="modal-body Captionstyle text-center">
+      <p>{{ messageText }}</p>
+    </div>
+    <div class="modal-footer justify-content-center border-0">
+      <button type="button" class="MainButtonStyle" (click)="alert_ok()">
+        {{ okButtonText }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="messageType === 'error'">
+    <div *ngIf="errorMessage?.ErrorType === 1">
+      <div
+        class="modal-header"
+        style="background-color: crimson !important; color: white"
+      >
+        <h5 class="modal-title" style="font-size: 12px">Error Message</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          aria-label="Close"
+          (click)="modal.dismiss()"
+        ></button>
+      </div>
+      <div
+        class="modal-body"
+        style="background-color: #383838; color: white; font-size: 12px"
+      ></div>
+      <div class="modal-footer" style="background-color: crimson">
+        <button
+          type="button"
+          class="btn btn-light btn-sm"
+          (click)="modal.close()"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+    <div *ngIf="errorMessage?.ErrorType === 2">
+      <div class="modal-body Captionstyle text-center">
+        <p>{{ errorMessage?.MsgNumber }}: &nbsp; {{ errorMessage?.Desc }}</p>
+      </div>
+      <div class="modal-footer justify-content-center border-0">
+        <button type="button" class="MainButtonStyle" (click)="modal.close()">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div *ngIf="isLoading" class="loading-overlay"></div>
